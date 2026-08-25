@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import sklearn.linear_model as lrm
 
 from utils import pretty_log as pl, log_title as lt
 
@@ -48,24 +49,37 @@ def main() -> None:
     # Normality test - passed follows a
     plt.hist(input_column)
     # plt.show()
-    print("A1. Normality Test ✅ - follows Bell Curve distribution")
+    pl("A1. Normality Test ✅", "Follows Bell Curve distribution")
 
     # 4b. Linear - Scatter plot
     plt.scatter(x=input_column, y=output_column)
     # plt.show()
-    print("A2. Linearity Test ✅ - input/output scattered linearly")
+    pl("A2. Linearity Test ✅", "input/output scattered linearly")
 
     # 4c. Correlation matrix | 4e. No Multicollinearity
-    print("A3. Multicollinearity Test Skipped - No corr since not many features to compare")
+    pl("A3. Multicollinearity Test Skipped", "No corr since not many features to compare")
     pl("MultiCollinearity", data_prep.corr())
 
     # 4f. No AutoRegression
-    print("A4. No AutoRegression Test Skipped - No corr since we're comparing against a single feature (weight)")
+    pl("A4. No AutoRegression Test Skipped", "No corr since we're comparing against a single feature (weight)")
 
     # These two steps will be performed during model training
     # 4d. Homoscadacity
     # 4g. Zero Residual Mean
 
     # 5. Model Building
-    X = data_prep['weight_kg']          # input 
-    y = data_prep['height_cm']          # output
+    X = data_prep[['weight_kg']]          # input 
+    y = data_prep[['height_cm']]          # output
+
+    # 6. Model training using Linear Regression - Ordinary Least Squares 
+    linear_regression_model = lrm.LinearRegression()
+    linear_regression_model.fit(X, y)
+
+    # 6a. Deliverables of the trained data: co-efficient (m / slope) & intercept (y)
+    # i.e., y = mx + c, where x = input, m = slope, c = intecept, y = output
+    m_slope_coefficient = linear_regression_model.coef_
+    y_intercept = linear_regression_model.intercept_
+    deliverables = pd.DataFrame({ 'co-efficient' : m_slope_coefficient.tolist(),  'y-intercept': y_intercept }) 
+    pl('📦 Deliverables of trained data', deliverables)
+
+    
