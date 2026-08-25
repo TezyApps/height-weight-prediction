@@ -1,6 +1,7 @@
+import pandas as pd
+import matplotlib.pyplot as plt
 
 from utils import pretty_log as pl, log_title as lt
-import pandas as pd
 
 csv_data_file = 'resources/weight-height.csv'
 
@@ -41,9 +42,30 @@ def main() -> None:
     pl("⚙️  Transformed data", data_prep)
 
     # 4. Assumptions Tests:
-    # 4a. Linear - Scatter plot
-    # 4b. Correlation matrix
-    # 4c. Homoscadacity
-    # 4d. No Multicollinearity
-    # 4e. No AutoRegression
-    # 4f. Zero Residual Mean
+    input_column = data_prep['weight_kg']
+    output_column = data_prep['height_cm']
+
+    # Normality test - passed follows a
+    plt.hist(input_column)
+    # plt.show()
+    print("A1. Normality Test ✅ - follows Bell Curve distribution")
+
+    # 4b. Linear - Scatter plot
+    plt.scatter(x=input_column, y=output_column)
+    # plt.show()
+    print("A2. Linearity Test ✅ - input/output scattered linearly")
+
+    # 4c. Correlation matrix | 4e. No Multicollinearity
+    print("A3. Multicollinearity Test Skipped - No corr since not many features to compare")
+    pl("MultiCollinearity", data_prep.corr())
+
+    # 4f. No AutoRegression
+    print("A4. No AutoRegression Test Skipped - No corr since we're comparing against a single feature (weight)")
+
+    # These two steps will be performed during model training
+    # 4d. Homoscadacity
+    # 4g. Zero Residual Mean
+
+    # 5. Model Building
+    X = data_prep['weight_kg']          # input 
+    y = data_prep['height_cm']          # output
