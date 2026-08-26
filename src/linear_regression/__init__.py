@@ -82,4 +82,25 @@ def main() -> None:
     deliverables = pd.DataFrame({ 'co-efficient' : m_slope_coefficient.tolist(),  'y-intercept': y_intercept }) 
     pl('📦 Deliverables of trained data', deliverables)
 
+    # 7. Model Testing
+    # def manual_test(weight_x):
+    #     output_y = (m_slope_coefficient * weight_x) + y_intercept
+    #     print(f"IF {weight_x} kg, THEN {output_y} cm")
+
+    # m_test_data = [75, 96, 80]
+    # for wx in m_test_data:
+    #     manual_test(wx)
+
+    # X_test_auto = pd.DataFrame(m_test_data)
+    # y_test_auto = linear_regression_model.predict(X_test_auto)
+    # pl('🧞 Manual Prediction', y_test_auto)
     
+    # 7a. Automatic Prediction:
+    y_pred = linear_regression_model.predict(X)
+    pl('🧞 Automatic Prediction', (y_pred, y_pred.shape, y.shape))
+
+    # 8. Model Evaluation:
+    error = y - y_pred
+    comparison = pd.DataFrame({'y': y.squeeze(), 'y_pred': y_pred.ravel()})
+    comparison['error'] = error
+    pl(f'🧪 Model Evaluation : Error Rate : {error.mean()}', comparison)
