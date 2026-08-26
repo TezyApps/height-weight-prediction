@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import sklearn.linear_model as lrm
+from pickle import dump
 
 from utils import pretty_log as pl, log_title as lt
 
@@ -104,3 +105,8 @@ def main() -> None:
     comparison = pd.DataFrame({'y': y.squeeze(), 'y_pred': y_pred.ravel()})
     comparison['error'] = error
     pl(f'🧪 Model Evaluation : Error Rate : {error.mean()}', comparison)
+
+    # 9. Model Deployment:
+    pkl_file = 'resources/height_prediction.pkl'
+    intelligence_file = dump(linear_regression_model, open(pkl_file, 'wb'))      # wb ➡ Write Bytes, output ➡ *.pkl (pickle) binary format
+    pl(f'📝 Deploying Intelligence file...', pkl_file)
