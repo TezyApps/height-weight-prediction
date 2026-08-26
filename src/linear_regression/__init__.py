@@ -110,3 +110,6 @@ def main() -> None:
     pkl_file = 'resources/height_prediction.pkl'
     intelligence_file = dump(linear_regression_model, open(pkl_file, 'wb'))      # wb ➡ Write Bytes, output ➡ *.pkl (pickle) binary format
     pl(f'📝 Deploying Intelligence file...', pkl_file)
+
+    # 10. Distributed and ready to test from different module/client.
+    # continued 'src/height_predictor/__init__.py'
