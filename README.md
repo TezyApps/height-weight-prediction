@@ -113,7 +113,8 @@ deployed model and serves predictions.
 
 ### Troubleshooting:
 
-> [!WARN]
+> [!WARNING]
+>
 > X doesn't have valid feature names:
 >
 > `sklearn/utils/validation.py:2827: UserWarning: X does not have valid feature names, but LinearRegression was fitted with feature names`
