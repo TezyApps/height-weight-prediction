@@ -16,6 +16,8 @@ dependencies = [
 [project.scripts]
 linear-regression = "linear_regression:main"
 hwp = "linear_regression:main"
+logistic-regression = "logistic_regression:main"
+log-reg = "logistic_regression:main"
 hp = "height_predictor:main"
 
 [build-system]
